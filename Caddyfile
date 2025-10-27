@@ -1,0 +1,11 @@
+:80 {
+    root * /app/public
+    php_server
+    file_server
+}
+:443 {
+    root * /app/public
+    php_server
+    file_server
+    tls internal
+}
