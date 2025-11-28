@@ -1,11 +1,13 @@
 <header>
-	<p>Quai Antique</p>
+	<a href="{{ path('app_home') }}" class="logo">Quai Antique</a>
 	<nav>
 		<ul>
 			<li>Accueil</li>
 			<li>contact</li>
 			<li>connexion</li>
-			<li>reserver</li>
+			<li>
+				<a href="{{ path('dish_add') }}">Ajouter plat</a>
+			</li>
 		</ul>
 	</nav>
 </header>

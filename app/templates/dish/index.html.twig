@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un plat
+{% endblock %}
+
+
+{% block body %}
+	<h1>Liste de plats</h1>
+	<ul>
+		{% for dish in dishes %}
+			<li>{{ dish.nom }}
+				-
+				{{ dish.prix }}
+				€</li>
+		{% else %}
+			<li>No dishes found.</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

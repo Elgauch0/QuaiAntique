@@ -9,6 +9,7 @@ services:
       DEFAULT_URI: https://${SERVER_NAME:-localhost}:${HTTPS_PORT:-443}
       # Run "composer require symfony/orm-pack" to install and configure Doctrine ORM
       DATABASE_URL: postgresql://symfony:${POSTGRES_PASSWORD}@db:5432/QuaiAntiqueDb?serverVersion=16&charset=-utf8
+      APP_DEBUG: 1
     volumes:
       - caddy_data:/data
       - caddy_config:/config
