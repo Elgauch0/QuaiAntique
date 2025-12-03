@@ -1,19 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un plat
+{% block title %}Nos plat
 {% endblock %}
 
-
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/dish/index.css')}}">
+{% endblock %}
 {% block body %}
-	<h1>Liste de plats</h1>
-	<ul>
+	<h1>Liste de Nos plats :</h1>
+	<div class="dishes-list">
+
 		{% for dish in dishes %}
-			<li>{{ dish.nom }}
-				-
-				{{ dish.prix }}
-				€</li>
+			<div class="dish-item">
+
+				<p>
+					nom du plat :{{ dish.nom }}</p>
+				<p>
+					description :
+					{{ dish.description }}</p>
+				<p>
+					prix :
+					{{ dish.prix }}
+					€</p>
+				<p>
+					catégorie :
+					{{ dish.category.title }}</p>
+				<br>
+				<a href="{{ path('dish_show', {'id': dish.id}) }}">
+					modifier / supprimer</a>
+				<br>
+				<br>
+				<hr>
+			</div>
 		{% else %}
-			<li>No dishes found.</li>
+			<p>
+				dishes found.</p>
 		{% endfor %}
-	</ul>
+		<a href="{{ path('dish_add') }}">Ajouter</a>
+	</div>
 {% endblock %}

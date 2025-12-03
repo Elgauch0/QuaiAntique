@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail du plat
+{% endblock %}
+
+
+{% block body %}
+	<h1>{{dish.nom}}</h1>
+	<ul>
+		<li>Prix :
+			{{dish.prix}}
+			€</li>
+		<li>Description :
+			{{dish.description}}</li>
+	</ul>
+{% endblock %}

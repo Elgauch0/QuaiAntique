@@ -7,26 +7,45 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Dish;
+use App\Repository\DishRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Requirement\Requirement;
 
 final class DishController extends AbstractController
 {
 
 
-    public function __construct(private readonly  EntityManagerInterface $em) {}
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly DishRepository $repository
+    ) {}
 
 
 
     #[Route('/dish', name: 'dish_home', methods: ['GET'])]
     public function index(): Response
     {
-        $dishes = $this->em->getRepository(Dish::class)->findAll();
+        $dishes = $this->repository->findAll();
         return $this->render('dish/index.html.twig', [
             'dishes' => $dishes,
         ]);
     }
 
+
+
+    #[Route('/dish/{id}', name: 'dish_show', methods: ['GET'], requirements: ['id' => Requirement::POSITIVE_INT])]
+    public function show(Dish $dish): Response
+    {
+
+
+        if (!$dish) {
+            throw $this->createNotFoundException('Plat non trouvé');
+        }
+        return $this->render('dish/show.html.twig', [
+            'dish' => $dish,
+        ]);
+    }
 
 
 
