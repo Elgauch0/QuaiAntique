@@ -9,11 +9,9 @@
 {% endblock %}
 {% block body %}
 	<h1>Liste de Nos plats :</h1>
-	{% for message in app.flashes('success') %}
-		<div class="alert-success">
-			{{ message }}
-		</div>
-	{% endfor %}
+
+	{# partials goes here #}
+	{% include '_partials/flashes.html.twig' %}
 	<div class="dishes-list">
 
 		{% for dish in dishes %}

@@ -60,6 +60,17 @@ h2 {
   text-align: center;
 }
 
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 1rem;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  text-align: center;
+}
+
 .logo {
   font-family: var(--Headline);
   font-size: 1.5rem;
@@ -71,4 +82,22 @@ h2 {
 header nav ul li a {
   color: aliceblue;
   text-decoration: none;
+}
+
+/* Specific styles for making body take all the space*/
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* hauteur = toute la fenêtre */
+}
+
+main {
+  flex: 1;
+  /* prend tout l’espace restant */
 }

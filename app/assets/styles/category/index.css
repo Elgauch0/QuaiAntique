@@ -1,0 +1,25 @@
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 2rem auto;
+}
+
+
+th,
+td {
+    border: 1px solid black;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+
+.createbtn {
+    display: block;
+    margin: 1rem auto;
+    width: fit-content;
+    background-color: var(--Primary);
+    color: var(--ColorText);
+    padding: 0.3rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
