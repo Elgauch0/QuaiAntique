@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-#[Route('/dish')]
+#[Route('/admin/dish')]
 final class DishController extends AbstractController
 {
 
