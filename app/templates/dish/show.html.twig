@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail du plat
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/dish/show.css')}}">
+{% endblock %}
+
+
+{% block body %}
+	<h1>{{dish.nom}}</h1>
+
+	{% if dish.imageName %}
+		<img src="{{ asset('images/dishes/' ~ dish.imageName) }}" alt="{{ dish.nom }}">
+	{% else %}
+		<p>Aucune photo disponible</p>
+	{% endif %}
+
+	<ul>
+		<li>Prix :
+			{{dish.prix}}
+			€</li>
+		<li>Description :
+			{{dish.description}}</li>
+	</ul>
+{% endblock %}

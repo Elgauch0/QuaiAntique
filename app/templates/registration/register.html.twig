@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/dish/add.css')}}">
+{% endblock %}
+
+{% block body %}
+	<h1>Register</h1>
+	<fieldset class="form-group">
+		<legend class="legendForm">Formulaire d'inscription</legend>
+		{{form(registrationForm)}}
+		</fieldset>
+	{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+
+	{# Présentation  Bloc.twig #}
+	{% include "_partials/presentation.html.twig"%}
+
+	{# Bienvenue Bloc.twig #}
+	{% include 'components/presentationComponent.html.twig' with {
+  			image: 'images/fried.jpg',
+  			title: 'Bienvenue au Quai Antique ',
+  			highlight: 'Bienvenue dans notre restaurant gastronomique, où chaque plat est une invitation au voyage des sens.',
+  			textbtn: 'Nos menus.'
+		} %}
+
+
+	{# Produit Frais bloc twig#}
+	<section class="presentationDark">
+		<h2>Des Produits Frais</h2>
+		<figure>
+			<img src="{{ asset('/images/mossel.jpg') }}" alt="Plat chaud servi dans une assiette">
+			<figcaption>
+				Laissez-vous séduire par notre cuisine d’exception, pensée pour éveiller les palais les plus exigeants.
+			</figcaption>
+		</figure>
+		<button>Notre Gallerie</button>
+	</section>
+
+	{# Réservation en Ligne Bloc.twig #}
+	{% include 'components/presentationComponent.html.twig' with {
+  			image: 'images/pasta.jpg',
+  			title: 'Réservez en ligne ',
+  			highlight: 'Réservation en ligne est Possible.',
+  			textbtn: 'Réservez ici.'
+		} %}
+
+
+{% endblock %}

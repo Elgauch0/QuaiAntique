@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editez un plat
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/dish/add.css')}}">
+{% endblock %}
+{% block body %}
+
+	<fieldset class="form-group">
+		<legend class="legendForm">Editer un plat</legend>
+		<input type="hidden" name="_method" value="PATCH">
+		{{ form_start(form) }}
+
+		{{ form_row(form.nom) }}
+		{{ form_row(form.description) }}
+		{{ form_row(form.prix) }}
+		{{ form_row(form.Category) }}
+		{{ form_row(form.save) }}
+
+		{{ form_end(form) }}
+		<form method="post" action="{{ path('dish_delete', {'id': dish.id}) }}">
+			<input type="hidden" name="_method" value="DELETE">
+			<button>Supprimer</button>
+		</form>
+
+
+	</fieldset>
+
+
+{% endblock %}

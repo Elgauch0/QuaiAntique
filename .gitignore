@@ -18,4 +18,4 @@ app/assets/vendor/
 ###< symfony/asset-mapper ###
 .env*
 !.env.docker.example
-compose*
+

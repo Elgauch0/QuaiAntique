@@ -1,11 +1,33 @@
 <header>
-	<img src="{{asset('/images/logo.avif')}}" alt="image logo">
+	<a href="{{ path('app_home') }}" class="logo">Quai Antique</a>
 	<nav>
 		<ul>
-			<li>Accueil</li>
+			<li>
+				<a href="{{ path('app_home') }}">Accueil</a>
+			</li>
+
 			<li>contact</li>
-			<li>connexion</li>
-			<li>reserver</li>
+
+			{% if app.user %}
+				<li>
+					<a href="{{ path('app_logout') }}">déconnexion</a>
+				</li>
+
+			{% else %}
+				<li>
+					<a href="{{ path('app_login') }}">connexion</a>
+				</li>
+
+			{% endif %}
+
+			<li>
+				<a href="{{ path('app_register') }}">inscription</a>
+			</li>
+
+
+			{# <li>
+							<a href="{{ path('dish_add') }}">Ajouter plat</a>
+						</li> #}
 		</ul>
 	</nav>
 </header>

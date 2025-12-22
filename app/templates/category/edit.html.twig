@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}edit!
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/dish/add.css')}}">
+{% endblock %}
+
+{% block body %}
+
+
+	<fieldset class="form-group">
+		<legend class="legendForm">Modifier une catégorie</legend>
+		{{ form(categoryEditForm) }}
+			<form method="post" action="{{ path('category_delete', {'id': category.id}) }}" onsubmit="return confirm('la supprimation dun categorie va supprimera ses plats associé aussi?');">
+				<input type="hidden" name="_method" value="DELETE">
+				<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+				<button class="btn btn-danger">Supprimer</button>
+			</form>
+		</fieldset>
+
+
+	{% endblock %}

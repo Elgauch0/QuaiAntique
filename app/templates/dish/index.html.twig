@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos plat
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/dish/index.css')}}">
+{% endblock %}
+{% block body %}
+	<h1>Liste de Nos plats :</h1>
+
+	{# partials goes here #}
+	{% include '_partials/flashes.html.twig' %}
+	<div class="dishes-list">
+
+		{% for dish in dishes %}
+			<div class="dish-item">
+
+				<p class="dish-name">
+					{{ dish.nom }}</p>
+				<p>
+
+					{{ dish.description }}</p>
+				<p>
+
+					{{ dish.prix }}
+					€</p>
+				<p>
+
+					{{ dish.category.title }}</p>
+				<br>
+				<a href="{{ path('dish_edit', {'id': dish.id}) }}">
+					modifier / supprimer</a>
+				<br>
+				<br>
+				<hr>
+			</div>
+		{% else %}
+			<p>
+				dishes found.</p>
+		{% endfor %}
+		<a href="{{ path('dish_add') }}">Ajouter</a>
+	</div>
+{% endblock %}

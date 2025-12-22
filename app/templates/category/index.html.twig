@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}edit!
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/category/index.css')}}">
+{% endblock %}
+
+
+{% block body %}
+	{% include '_partials/flashes.html.twig' %}
+	<h1>Crud Catégories</h1>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Catégorie</th>
+				<th>action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for category in categories %}
+				<tr>
+					<td>{{ category.id }}</td>
+					<td>{{ category.title }}</td>
+					<td>
+
+						<a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a class="createbtn" href="{{ path('category_add') }}">Ajouter une Catégorie</a>
+{% endblock %}
