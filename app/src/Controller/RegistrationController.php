@@ -21,6 +21,13 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+
+            if (strtoupper($form->get('name')->getData()) === 'ADMINQUAIANTIQUE') {
+                throw new \RuntimeException('Le nom "ADMINQUAIANTIQUE" est réservé et ne peut pas être utilisé.');
+            }
+
+
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
 
