@@ -2,11 +2,16 @@
 	<a href="{{ path('app_home') }}" class="logo">Quai Antique</a>
 	<nav>
 		<ul>
-			<li>
-				<a href="{{ path('app_home') }}">Accueil</a>
-			</li>
 
-			<li>contact</li>
+			{% if is_granted('ROLE_ADMIN')%}
+				<li>
+					<a href="{{ path('dish_add') }}">Plats</a>
+				</li>
+				<li>
+					<a href="{{ path('category_add') }}">Catégories</a>
+				</li>
+			{% endif %}
+
 
 			{% if app.user %}
 				<li>
@@ -20,14 +25,6 @@
 
 			{% endif %}
 
-			<li>
-				<a href="{{ path('app_register') }}">inscription</a>
-			</li>
-
-
-			{# <li>
-							<a href="{{ path('dish_add') }}">Ajouter plat</a>
-						</li> #}
 		</ul>
 	</nav>
 </header>
