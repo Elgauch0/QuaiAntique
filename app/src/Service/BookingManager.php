@@ -19,7 +19,13 @@ class BookingManager
 
     public function getBookingError(RestaurantSettings $settings, Booking $booking): ?string
     {
+        $now = new \DateTimeImmutable();
         $datetime = $booking->getDatetime();
+
+        // Vérification de la date dans le futur
+        if ($datetime < $now) {
+            return "La date de réservation doit être dans le futur.";
+        }
 
         // 1. Vérification du jour
         if (!$settings->isDayOpen($datetime)) {

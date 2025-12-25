@@ -1,16 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Réservation
+{% block title %}Mes réservation
 {% endblock %}
 {% block stylesheets %}
 	{{ parent() }}
-	<link rel="stylesheet" href="{{ asset('styles/dish/add.css')}}">
+	<link rel="stylesheet" href="{{ asset('styles/reservation/index.css')}}">
 {% endblock %}
 
+
 {% block body %}
-	{% include "_partials/flashes.html.twig" %}
-	<fieldset class="form-group">
-		<legend class="legendForm">Make a Reservation</legend>
-		{{form(bookingForm)}}
-		</fieldset>
-	{% endblock %}
+	<div class="container">
+
+		{% include "_partials/flashes.html.twig" %}
+
+		<h1>Mes réservations</h1>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Date et Heure</th>
+					<th>Nombre de personnes</th>
+					<th>Statut / Allergies</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for booking in bookings %}
+					<tr>
+						<td>{{ booking.datetime|date('d/m/Y H:i') }}</td>
+						<td>{{ booking.guestCount }}</td>
+						<td>{{ booking.allergies }}</td>
+						<td
+							class="td-actions">
+							{# Formulaire de suppression sécurisé #}
+							<form
+								method="post" action="{{ path('app_reservation_delete',{'id':booking.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?');">
+								{# Le token CSRF : très important ! #}
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ booking.id) }}">
+								<input type="hidden" name="_method" value="DELETE">
+
+								<button class="btn-delete">
+									<i class="fas fa-trash"></i>
+									Annuler
+								</button>
+							</form>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="4">Aucune réservation trouvée.</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

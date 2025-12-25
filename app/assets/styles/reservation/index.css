@@ -1,0 +1,74 @@
+/* Container principal */
+.container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+/* Style du tableau */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    /* Pour que les coins arrondis fonctionnent */
+}
+
+.table thead {
+    background-color: var(--Primary);
+    color: white;
+}
+
+.table th,
+.table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+/* Alternance de couleurs pour les lignes */
+.table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* Effet au survol */
+.table tbody tr:hover {
+    background-color: #edf7ff;
+    transition: background-color 0.2s ease;
+}
+
+.btn-delete {
+    background-color: transparent;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.btn-delete:hover {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Alignement vertical dans la cellule */
+.td-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Responsive : scroll horizontal sur mobile */
+@media (max-width: 600px) {
+    .table {
+        display: block;
+        overflow-x: auto;
+    }
+}

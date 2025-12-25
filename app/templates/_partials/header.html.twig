@@ -2,8 +2,8 @@
 	<a href="{{ path('app_home') }}" class="logo">Quai Antique</a>
 	<nav>
 		<ul>
-
-			{% if is_granted('ROLE_ADMIN')%}
+			{# --- PARTIE ADMIN --- #}
+			{% if is_granted('ROLE_ADMIN') %}
 				<li>
 					<a href="{{ path('dish_add') }}">Plats</a>
 				</li>
@@ -12,19 +12,26 @@
 				</li>
 			{% endif %}
 
-
-			{% if app.user %}
+			{# --- PARTIE CLIENT (Connecté mais PAS admin) --- #}
+			{% if app.user and not is_granted('ROLE_ADMIN') %}
 				<li>
-					<a href="{{ path('app_logout') }}">déconnexion</a>
+					<a href="{{ path('app_reservation') }}">Réserver</a>
 				</li>
-
-			{% else %}
 				<li>
-					<a href="{{ path('app_login') }}">connexion</a>
+					<a href="{{ path('app_reservation_index') }}">Mes Réservations</a>
 				</li>
-
 			{% endif %}
 
+			{# --- PARTIE CONNEXION / DÉCONNEXION --- #}
+			{% if app.user %}
+				<li>
+					<a href="{{ path('app_logout') }}">Déconnexion</a>
+				</li>
+			{% else %}
+				<li>
+					<a href="{{ path('app_login') }}">Connexion</a>
+				</li>
+			{% endif %}
 		</ul>
 	</nav>
 </header>

@@ -9,11 +9,15 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Form\BookingType;
 use App\Entity\Booking;
 use App\Entity\RestaurantSettings;
+use App\Repository\BookingRepository;
 use App\Repository\RestaurantSettingsRepository;
 use App\Service\BookingManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Requirement\Requirement;
 
+#[IsGranted('ROLE_USER')]
+#[Route('/reservation')]
 final class ReservationController extends AbstractController
 {
 
@@ -23,10 +27,26 @@ final class ReservationController extends AbstractController
     ) {}
 
 
+    #[Route('/', name: 'app_reservation_index', methods: ['GET'])]
+    public function index(BookingRepository $bookingRepository): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
 
-    #[Route('/reservation', name: 'app_reservation', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_USER')]
-    public function index(Request $request, RestaurantSettingsRepository $restaurantSettingsRepository, BookingManager $bookingManager): Response
+        $bookings = $bookingRepository->findBy(['client' => $user], ['datetime' => 'DESC']);
+        return $this->render('reservation/index.html.twig', [
+            'bookings' => $bookings,
+        ]);
+    }
+
+
+
+
+
+
+
+    #[Route('/add', name: 'app_reservation', methods: ['GET', 'POST'])]
+    public function new(Request $request, RestaurantSettingsRepository $restaurantSettingsRepository, BookingManager $bookingManager): Response
 
     {
         /** @var \App\Entity\User $user */
@@ -58,11 +78,43 @@ final class ReservationController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Votre réservation a bien été prise en compte !');
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_reservation_index');
         }
 
-        return $this->render('reservation/index.html.twig', [
+        return $this->render('reservation/new.html.twig', [
             'bookingForm' => $BookingForm,
         ]);
+    }
+
+
+
+
+
+
+
+
+    #[Route('/delete/{id}', name: 'app_reservation_delete', methods: ['DELETE'], requirements: ['id' => Requirement::POSITIVE_INT])]
+    public function delete(Booking $booking, Request $request): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
+        if ($booking->getClient() !== $user) {
+            $this->addFlash('error', 'Vous ne pouvez pas annuler cette réservation.');
+            return $this->redirectToRoute('app_reservation_index');
+        }
+        if ($booking->getDatetime() <= new \DateTimeImmutable()->modify('+4 hours')) {
+            $this->addFlash('error', 'Vous ne pouvez pas annuler une réservation passée ou  moins de 4 heures avant l\'heure prévue.');
+            return $this->redirectToRoute('app_reservation_index');
+        }
+
+
+        if ($this->isCsrfTokenValid('delete' . $booking->getId(), $request->request->get('_token'))) {
+            $this->em->remove($booking);
+            $this->em->flush();
+            $this->addFlash('success', 'La réservation a été annulée avec succès.');
+        }
+
+        return $this->redirectToRoute('app_reservation_index');
     }
 }

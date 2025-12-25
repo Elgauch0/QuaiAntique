@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservez votre table
+{% endblock %}
+
+{% block meta_description %}
+	Réservez votre table au Quai Antique, restaurant gastronomique à Lyon, et vivez une expérience culinaire inoubliable avec le Chef Bernard Arnaud.
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/dish/add.css')}}">
+{% endblock %}
+
+{% block body %}
+	{% include "_partials/flashes.html.twig" %}
+	<fieldset class="form-group">
+		<legend class="legendForm">Make a Reservation</legend>
+		{{form(bookingForm)}}
+		</fieldset>
+	{% endblock %}
