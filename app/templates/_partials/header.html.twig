@@ -2,23 +2,26 @@
 	<a href="{{ path('app_home') }}" class="logo">Quai Antique</a>
 	<nav>
 		<ul>
+			{# --- PARTIE GÉNÉRALE (Tous les utilisateurs) --- #}
+			<li>
+				<a href="{{ path('dish_home') }}">Plats</a>
+			</li>
 			{# --- PARTIE ADMIN --- #}
 			{% if is_granted('ROLE_ADMIN') %}
+
 				<li>
-					<a href="{{ path('dish_add') }}">Plats</a>
-				</li>
-				<li>
-					<a href="{{ path('category_add') }}">Catégories</a>
+					<a href="{{ path('category_home') }}">Catégories</a>
 				</li>
 			{% endif %}
 
 			{# --- PARTIE CLIENT (Connecté mais PAS admin) --- #}
 			{% if app.user and not is_granted('ROLE_ADMIN') %}
-				<li>
-					<a href="{{ path('app_reservation') }}">Réserver</a>
-				</li>
+
 				<li>
 					<a href="{{ path('app_reservation_index') }}">Mes Réservations</a>
+				</li>
+				<li>
+					<a href="{{ path('app_profil') }}">Mon profil</a>
 				</li>
 			{% endif %}
 
@@ -28,6 +31,8 @@
 					<a href="{{ path('app_logout') }}">Déconnexion</a>
 				</li>
 			{% else %}
+
+
 				<li>
 					<a href="{{ path('app_login') }}">Connexion</a>
 				</li>

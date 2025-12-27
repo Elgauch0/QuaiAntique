@@ -65,6 +65,17 @@
     gap: 10px;
 }
 
+.reservebtn {
+    display: block;
+    margin: 1rem auto;
+    width: fit-content;
+    background-color: var(--Primary);
+    color: var(--ColorText);
+    padding: 0.3rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 /* Responsive : scroll horizontal sur mobile */
 @media (max-width: 600px) {
     .table {

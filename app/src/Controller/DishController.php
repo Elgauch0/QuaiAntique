@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Form\DishType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-#[Route('/admin/dish')]
+
 final class DishController extends AbstractController
 {
 
@@ -24,18 +25,32 @@ final class DishController extends AbstractController
 
 
 
-    #[Route('/', name: 'dish_home', methods: ['GET'])]
-    public function index(): Response
+    #[Route('/dish', name: 'dish_home', methods: ['GET'])]
+    public function index(Request $request): Response
     {
-        $dishes = $this->repository->findAll();
+        $categorie = $request->query->get('category');
+        $categories = $this->em->getRepository(Category::class)->findAll();
+
+
+
+        if ($categorie) {
+
+            $dishes = $this->repository->findBy(['Category' => $categorie]);
+        } else {
+            $dishes = $this->repository->findAll();
+        }
+
+
+
         return $this->render('dish/index.html.twig', [
             'dishes' => $dishes,
+            'categories' => $categories,
         ]);
     }
 
 
 
-    #[Route('/{id}', name: 'dish_show', methods: ['GET'], requirements: ['id' => Requirement::POSITIVE_INT])]
+    #[Route('/admin/dish/{id}', name: 'dish_show', methods: ['GET'], requirements: ['id' => Requirement::POSITIVE_INT])]
     public function show(Dish $dish): Response
     {
         if (!$dish) {
@@ -47,7 +62,7 @@ final class DishController extends AbstractController
     }
 
 
-    #[Route('/edit/{id}', name: 'dish_edit', methods: ['GET', 'PATCH'], requirements: ['id' => Requirement::POSITIVE_INT])]
+    #[Route('/admin/dish/edit/{id}', name: 'dish_edit', methods: ['GET', 'PATCH'], requirements: ['id' => Requirement::POSITIVE_INT])]
     public function edit(Dish $dish, Request $request): Response
     {
         if (!$dish) {
@@ -78,7 +93,7 @@ final class DishController extends AbstractController
 
 
 
-    #[Route('/add', name: 'dish_add', methods: ['GET', 'POST'])]
+    #[Route('/admin/dish/add', name: 'dish_add', methods: ['GET', 'POST'])]
     public function add(Request $request): Response
     {
 
@@ -100,7 +115,7 @@ final class DishController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'dish_delete', methods: ['DELETE'], requirements: ['id' => Requirement::POSITIVE_INT])]
+    #[Route('/admin/dish/{id}', name: 'dish_delete', methods: ['DELETE'], requirements: ['id' => Requirement::POSITIVE_INT])]
     public function delete(Dish $dish): Response
     {
         if (!$dish) {

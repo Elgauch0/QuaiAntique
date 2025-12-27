@@ -30,20 +30,24 @@
 						<td>{{ booking.datetime|date('d/m/Y H:i') }}</td>
 						<td>{{ booking.guestCount }}</td>
 						<td>{{ booking.allergies }}</td>
-						<td
-							class="td-actions">
-							{# Formulaire de suppression sécurisé #}
-							<form
-								method="post" action="{{ path('app_reservation_delete',{'id':booking.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?');">
-								{# Le token CSRF : très important ! #}
-								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ booking.id) }}">
-								<input type="hidden" name="_method" value="DELETE">
+						<td class="td-actions">
+							{% set is_past = booking.datetime < date() %}
 
-								<button class="btn-delete">
-									<i class="fas fa-trash"></i>
-									Annuler
-								</button>
-							</form>
+							{% if not is_past %}
+								{# Formulaire affiché seulement si la date n'est pas passée #}
+								<form method="post" action="{{ path('app_reservation_delete',{'id':booking.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?');">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ booking.id) }}">
+									<input type="hidden" name="_method" value="DELETE">
+
+									<button class="btn-delete">
+										<i class="fas fa-trash"></i>
+										Annuler
+									</button>
+								</form>
+							{% else %}
+								{# Message ou bouton grisé pour les dates passées #}
+								<span class="badge-expired">Passée</span>
+							{% endif %}
 						</td>
 					</tr>
 				{% else %}
@@ -53,5 +57,6 @@
 				{% endfor %}
 			</tbody>
 		</table>
+		<a href="{{ path('app_reservation') }}" class="reservebtn">Réserver</a>
 	</div>
 {% endblock %}
