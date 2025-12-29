@@ -15,7 +15,8 @@
   			image: 'images/fried.jpg',
   			title: 'Bienvenue au Quai Antique ',
   			highlight: 'Bienvenue dans notre restaurant gastronomique, où chaque plat est une invitation au voyage des sens.',
-  			textbtn: 'Nos menus.'
+  			textlink: 'Nos menus.',
+			link: 'dish_home'
 		} %}
 
 
@@ -28,7 +29,7 @@
 				Laissez-vous séduire par notre cuisine d’exception, pensée pour éveiller les palais les plus exigeants.
 			</figcaption>
 		</figure>
-		<button>Notre Gallerie</button>
+		<a href="{{ path('app_gallerie') }}" class="btn">Voir notre galerie</a>
 	</section>
 
 	{# Réservation en Ligne Bloc.twig #}
@@ -36,7 +37,8 @@
   			image: 'images/pasta.jpg',
   			title: 'Réservez en ligne ',
   			highlight: 'Réservation en ligne est Possible.',
-  			textbtn: 'Réservez ici.'
+  			textlink: 'Réservez ici.',
+			link:'app_reservation'
 		} %}
 
 

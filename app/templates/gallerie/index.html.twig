@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Galerie - Quai Antique
+
+{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+
+	<link rel="stylesheet" href="{{ asset('styles/gallery/index.css')}}">
+
+{% endblock %}
+
+
+{% block body %}
+	<main class="container gallery-container">
+		{% include "_partials/flashes.html.twig" %}
+		<h1 class="gallery-title">Notre Galerie</h1>
+
+		{% if images is not empty %}
+			<div class="gallery-grid">
+				{% for image in images %}
+					<article class="gallery-item">
+						<div class="image-wrapper">
+							<img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{ image.title }}" loading="lazy">
+						</div>
+
+						<div class="gallery-info">
+							<h3>{{ image.title }}</h3>
+
+							{# LE BOUTON EST MAINTENANT DANS L'ARTICLE #}
+							{% if is_granted('ROLE_ADMIN') %}
+								<form method="post" action="{{ path('app_gallerie_delete', {'id': image.id}) }}" onsubmit="return confirm('Supprimer cette image ?');">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
+									<button class="btn-delete">Supprimer</button>
+								</form>
+							{% endif %}
+						</div>
+					</article>
+				{% endfor %}
+			</div>
+		{% else %}
+			<p class="empty-msg">Aucune image pour le moment.</p>
+		{% endif %}
+		{# À la fin de ton fichier, juste avant le </main> #}
+		{% if is_granted('ROLE_ADMIN') %}
+			<div class="admin-actions">
+				<a href="{{ path('app_gallerie_add') }}" class="btn-add">
+					+ Ajouter une nouvelle image
+				</a>
+			</div>
+		{% endif %}
+	</main>
+{% endblock %}

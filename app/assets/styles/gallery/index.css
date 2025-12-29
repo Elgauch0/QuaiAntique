@@ -1,0 +1,130 @@
+/* Container et Titre */
+.gallery-container {
+    padding: 2rem 1rem;
+}
+
+.gallery-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-weight: bold;
+}
+
+/* La Grille (Magie du CSS Grid) */
+.gallery-grid {
+    display: grid;
+    /* Crée des colonnes de 300px minimum qui s'adaptent toutes seules */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Les Cartes */
+.gallery-item {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+}
+
+/* L'Image */
+.image-wrapper img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    /* Garde le ratio sans déformer */
+    display: block;
+}
+
+/* Le Texte */
+.gallery-info {
+    padding: 1rem;
+    text-align: center;
+}
+
+.gallery-info h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.empty-msg {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+/* On centre le formulaire de suppression dans la carte */
+.gallery-info form {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+
+
+/* Le bouton lui-même */
+.btn-add {
+    display: inline-block;
+    background-color: #27ae60;
+    color: white !important;
+    padding: 12px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-add:hover {
+    background-color: #219150;
+}
+
+/* Container du bouton Ajouter */
+.admin-actions {
+    display: flex;
+    justify-content: center;
+    /* Centre le bouton horizontalement */
+    width: 100%;
+    padding: 2rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid #eee;
+
+}
+
+/* Style du bouton Ajouter */
+.btn-add {
+    display: inline-block;
+    background-color: var(--Primary);
+    color: white !important;
+    /* Force le blanc si ton thème a des liens bleus */
+    padding: 12px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-add:hover {
+    background-color: var(--Secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}

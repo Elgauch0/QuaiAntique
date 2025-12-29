@@ -1,0 +1,97 @@
+/* Section principale */
+.form-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+/* La carte du formulaire */
+.form-card {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 500px;
+}
+
+.form-card h1 {
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    color: #2c3e50;
+    text-align: center;
+}
+
+.form-subtitle {
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 2rem;
+}
+
+/* Espacement des champs */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Style des labels et inputs générés par Symfony */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #34495e;
+}
+
+input[type="text"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dcdde1;
+    border-radius: 6px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* Boutons */
+.form-actions {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-save {
+    background-color: var(--Primary);
+    /* Couleur sombre élégante */
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-save:hover {
+    background-color: var(--Secondary);
+}
+
+.btn-cancel {
+    text-align: center;
+    text-decoration: none;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+/* Spécifique à Vich (nettoyage visuel) */
+.vich-image-container a {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.8rem;
+}

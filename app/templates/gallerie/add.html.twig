@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une Image - Quai Antique
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/gallery/add.css')}}">
+{% endblock %}
+
+{% block body %}
+	<main class="form-section">
+		<div class="form-card">
+			<h1>Ajouter une photo</h1>
+			<p class="form-subtitle">Enrichissez la galerie du Quai Antique</p>
+
+			{{ form_start(form) }}
+			<div class="form-group">
+				{{ form_row(form.title, {'label': 'Titre de la photo', 'attr': {'placeholder': 'Ex: La terrasse en été'}}) }}
+			</div>
+
+			<div class="form-group vich-image-container">
+				{{ form_row(form.imageFile) }}
+			</div>
+
+			<div class="form-actions">
+				{{ form_widget(form.ajouter, {'attr': {'class': 'btn-save'}}) }}
+				<a href="{{ path('app_gallerie') }}" class="btn-cancel">Annuler</a>
+			</div>
+			{{ form_end(form) }}
+		</div>
+	</main>
+{% endblock %}
