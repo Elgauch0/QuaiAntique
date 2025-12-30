@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mentions Légales - Quai Antique
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		.static-container {
+			padding: 3rem 1rem;
+			line-height: 1.6;
+			max-width: 800px;
+			margin: 0 auto;
+			color: #333;
+		}
+		.static-title {
+			text-align: center;
+			margin-bottom: 3rem;
+			color: #2c3e50;
+		}
+		h2 {
+			border-bottom: 2px solid var(--Primary);
+			padding-bottom: 0.5rem;
+			margin-top: 2rem;
+			color: var(--Primary);
+		}
+		p,
+		ul {
+			margin-bottom: 1.2rem;
+		}
+		ul {
+			padding-left: 1.5rem;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<main class="container static-container">
+		<h1 class="static-title">Mentions Légales</h1>
+
+		<section>
+			<h2>1. Éditeur du site</h2>
+			<p>Le site
+				<strong>Quai Antique</strong>
+				est édité par :</p>
+			<ul>
+				<li>
+					<strong>Nom :</strong>
+					El Kaouri Anass (Propriétaire)</li>
+				<li>
+					<strong>Siège social :</strong>
+					Orly, France</li>
+				<li>
+					<strong>Email :</strong>
+					pas encore disponible</li>
+				<li>
+					<strong>Responsable de la publication :</strong>
+					El Kaouri Anass</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>2. Hébergement</h2>
+			<p>Le site n'est pas hébergé pour le moment :</p>
+			<ul>
+				<li>
+					<strong>Technologie :</strong>
+					Docker /symfony</li>
+				<li>
+					<strong>Localisation :</strong>
+					France</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>3. Propriété intellectuelle</h2>
+			<p>Tout le contenu présent sur le site (textes, images, logo) appartient au restaurant Quai Antique. Toute reproduction est interdite sans autorisation préalable.</p>
+		</section>
+
+		<section>
+			<h2>4. Données personnelles</h2>
+			<p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles (nom, email, mot de passe) collectées lors de la création de votre compte ou de vos réservations.</p>
+		</section>
+
+		<section>
+			<h2>5. Cookies</h2>
+			<p>Ce site utilise uniquement des cookies techniques nécessaires à l'authentification et au bon fonctionnement du système de réservation.</p>
+		</section>
+	</main>
+{% endblock %}

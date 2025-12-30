@@ -17,5 +17,5 @@ app/public/assets/
 app/assets/vendor/
 ###< symfony/asset-mapper ###
 .env*
-!.env.docker.example
+!.env.example
 

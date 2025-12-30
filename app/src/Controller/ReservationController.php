@@ -5,7 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Form\BookingType;
 use App\Entity\Booking;
 use App\Entity\RestaurantSettings;
@@ -16,8 +15,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-#[IsGranted('ROLE_USER')]
-#[Route('/reservation')]
+
+#[Route('/user/reservation')]
 final class ReservationController extends AbstractController
 {
 

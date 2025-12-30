@@ -1,51 +1,197 @@
-# Symfony Docker
+# 🍽️ Quai Antique - Gourmet Reservation System
 
-A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
-with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) inside!
+Welcome to **Quai Antique**, a comprehensive web application developed for Chef Arnaud Michant's restaurant. This project showcases modern Symfony ecosystem mastery, relational database management, and containerized deployment.
 
-![CI](https://github.com/dunglas/symfony-docker/workflows/CI/badge.svg)
+## 🚀 Architecture & Technologies
 
-## Getting Started
+This project is built on a cutting-edge infrastructure based on the **Symfony Docker** stack from [Kévin Dunglas](https://github.com/dunglas/symfony-docker).
 
-1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
-2. Run `docker compose build --pull --no-cache` to build fresh images
-3. Run `docker compose up --wait` to set up and start a fresh Symfony project
-4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
-5. Run `docker compose down --remove-orphans` to stop the Docker containers.
+### 🛠️ The Engine: FrankenPHP & Caddy
+Instead of a traditional Nginx + PHP-FPM setup, this project utilizes **FrankenPHP**, a next-generation PHP application server written in Go.
 
-## Features
+**Why this choice?**
+* **Integrated Caddy Server**: Natively handles HTTP/3 protocol and automatic TLS certificate renewal.
+* **Simplicity & Performance**: FrankenPHP combines web server and PHP interpreter into a single Docker service, simplifying maintenance and improving responsiveness.
+* **Scalability**: While the application currently runs in standard mode, FrankenPHP offers the ability to activate *Worker Mode* without infrastructure changes, allowing performance multiplication if restaurant traffic increases.
 
-- Production, development and CI ready
-- Just 1 service by default
-- Blazing-fast performance thanks to [the worker mode of FrankenPHP](https://frankenphp.dev/docs/worker/)
-- [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
-- Automatic HTTPS (in dev and prod)
-- HTTP/3 and [Early Hints](https://symfony.com/blog/new-in-symfony-6-3-early-hints) support
-- Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
-- [Vulcain](https://vulcain.rocks) support
-- Native [XDebug](docs/xdebug.md) integration
-- Super-readable configuration
+### 🐘 Technical Stack
+* **Symfony 7.3**: Leveraging the latest framework features (PHP 8 Attributes, Services, Autowiring).
+* **PostgreSQL**: Robust data management.
+* **VichUploaderBundle**: Optimized image upload handling for the gallery.
+* **Stimulus & UX Turbo**: Modern JavaScript integration for dynamic interactions.
 
-**Enjoy!**
+## 📖 Key Features
 
-## Docs
+### 👤 User Management
+- **Registration & Authentication**: Secure user accounts with role-based access.
+- **Profile Management**: Users can update personal information and view reservation history.
+- **Admin Creation**: Dedicated command to create administrator account.
 
-1. [Options available](docs/options.md)
-2. [Using Symfony Docker with an existing project](docs/existing-project.md)
-3. [Support for extra services](docs/extra-services.md)
-4. [Deploying in production](docs/production.md)
-5. [Debugging with Xdebug](docs/xdebug.md)
-6. [TLS Certificates](docs/tls.md)
-7. [Using MySQL instead of PostgreSQL](docs/mysql.md)
-8. [Using Alpine Linux instead of Debian](docs/alpine.md)
-9. [Using a Makefile](docs/makefile.md)
-10. [Updating the template](docs/updating.md)
-11. [Troubleshooting](docs/troubleshooting.md)
+### 📅 Reservation System
+- **Smart Booking**: Logic to manage available seats per service with capacity limits.
+- **Real-time Validation**: Checks against maximum guests per time slot.
+- **Allergy Information**: Users can specify dietary restrictions.
+- **Booking History**: Complete reservation tracking for users.
 
-## License
+### 🍽️ Menu Management (Admin)
+- **Category Organization**: Hierarchical menu structure.
+- **Dish Management**: CRUD operations for menu items with image uploads.
+- **Dynamic Pricing**: Flexible pricing system.
 
-Symfony Docker is available under the MIT License.
+### 🖼️ Gallery System
+- **Image Upload**: Admin interface for showcasing restaurant highlights.
+- **Responsive Display**: Optimized image presentation.
 
-## Credits
+### ⚙️ Restaurant Settings (Admin)
+- **Operating Hours**: Configurable lunch and dinner service times.
+- **Capacity Management**: Adjustable maximum guest limits.
+- **Flexible Configuration**: Easy-to-update restaurant parameters.
 
-Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+### 🔒 Security & Roles
+- **Role-Based Access**: Protected routes for `ROLE_ADMIN` and `ROLE_USER`.
+- **Authentication System**: Secure login/logout with Symfony Security.
+- **Flash Messages**: User-friendly feedback for actions.
+
+## 🏗️ Project Structure
+
+```
+├── app/                    # Symfony application
+│   ├── src/
+│   │   ├── Controller/     # Route controllers
+│   │   ├── Entity/         # Doctrine entities
+│   │   ├── Form/           # Symfony forms
+│   │   ├── Repository/     # Doctrine repositories
+│   │   └── Service/        # Business logic services
+│   ├── templates/          # Twig templates
+│   ├── assets/             # Frontend assets (JS, CSS, images)
+│   └── config/             # Symfony configuration
+├── frankenphp/             # FrankenPHP configuration
+├── docker-compose.yml      # Docker services
+├── Dockerfile              # Application container
+└── setup.sh               # Installation script
+```
+
+## 🗄️ Database Schema
+
+### Core Entities
+- **User**: Authentication, roles, guest count, allergies
+- **Booking**: Reservations with datetime, guest count, client relation
+- **Dish**: Menu items with images, pricing, categories
+- **Category**: Menu organization
+- **Image**: Gallery images
+- **RestaurantSettings**: Operating hours and capacity
+
+## 📦 Installation & Setup
+
+### Prerequisites
+- Docker & Docker Compose
+- Git
+
+### Quick Start
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/Elgauch0/QuaiAntique.git
+   cd QuaiAntique
+   ```
+
+2. **Run setup script**:
+   ```bash
+   chmod +x setup.sh
+   ./setup.sh
+   ```
+
+3. **Wait for containers to start**, then run migrations:
+   ```bash
+   docker compose exec php bin/console doctrine:migrations:migrate
+   ```
+
+4. **Create admin user**:
+   ```bash
+   docker compose exec php bin/console app:create-admin
+   ```
+
+5. **Access the application**:
+   - Main site: `http://localhost`
+   - Admin panel: Login with admin credentials and access `/admin/*` routes
+
+### Development Commands
+
+```bash
+# Start services
+docker compose up -d
+
+# Stop services
+docker compose down
+
+# View logs
+docker compose logs -f
+
+# Access PHP container
+docker compose exec php bash
+
+# Run tests
+docker compose exec php bin/phpunit
+
+# Clear cache
+docker compose exec php bin/console cache:clear
+```
+
+## 🔧 Configuration
+
+### Environment Variables
+Key configuration in `.env`:
+- `DATABASE_URL`: PostgreSQL connection string
+- `SERVER_NAME`: Domain configuration
+- `POSTGRES_PASSWORD`: Database password
+
+### Docker Services
+- **php**: FrankenPHP application server
+- **db**: PostgreSQL database
+
+## 🧪 Testing
+
+Run the test suite:
+```bash
+docker compose exec php bin/phpunit
+```
+
+## 📚 API Endpoints
+
+### Public Routes
+- `/`: Homepage
+- `/register`: User registration
+- `/login`: Authentication
+- `/gallerie`: Image gallery
+- `/dish`: Menu display
+
+### User Routes (Authenticated)
+- `/user/reservation`: Reservation management
+- `/user/profil`: Profile editing
+
+### Admin Routes (ROLE_ADMIN)
+- `/admin/category`: Category management
+- `/admin/dish`: Menu item management
+- `/admin/gallerie`: Gallery management
+- `/admin/settings`: Restaurant configuration
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the GNU General Public License v3.0 (GPLv3).
+
+You are free to use, modify, and distribute this software, provided that any derivative work is also distributed under the same GPL license.
+
+
+## 🙏 Acknowledgments
+
+- Built with the excellent [Symfony Docker](https://github.com/dunglas/symfony-docker) template
+- Special thanks to Chef Arnaud Michant for the inspiration
+- Symfony community for the robust framework
